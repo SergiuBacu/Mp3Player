@@ -12,6 +12,8 @@ namespace Mp3Player
 {
     public partial class JumpToFile : Form
     {
+
+        
         //---------------------
         public class Info
         {
@@ -49,7 +51,7 @@ namespace Mp3Player
         {
             int k = s.LastIndexOf('\\');
             
-            string sdf = s.Substring(k,s.Length - k);
+            string sdf = s.Substring(k+1,s.Length - k-1);
 
             return sdf;
         }
@@ -69,10 +71,20 @@ namespace Mp3Player
           //  Songs = Mp3Player.Form1.SongsInfo; 
 
         }
-
+        Play_Class play_function = new Play_Class();
         private void Jump_To_File_Button(object sender, EventArgs e)
         {
-           
+  //          play_function.myplayer.URL = 
+
+       //    Mp3Player.Elements
+       //     Mp3Player.Form1.playing
+      //     Mp3Player.Form1 sdfa =new Mp3Player.Form1();
+      //      sdfa.label1Text = "asdadasd";
+            play_function.myplayer.URL =Form1.SongsInfo[JumpListBox.SelectedIndex].path;
+            play_function.myplayer.controls.stop();
+            play_function.myplayer.controls.play();
+
+
         }
     }
 }

@@ -11,4 +11,3 @@ C:\Users\Sergiu\documents\visual studio 2013\Projects\Mp3Player\Mp3Player\obj\De
 C:\Users\Sergiu\documents\visual studio 2013\Projects\Mp3Player\Mp3Player\obj\Debug\Mp3Player.pdb
 C:\Users\Sergiu\documents\visual studio 2013\Projects\Mp3Player\Mp3Player\bin\Debug\Mp3Player.pdb
 C:\Users\Sergiu\documents\visual studio 2013\Projects\Mp3Player\Mp3Player\obj\Debug\Mp3Player.JumpToFile.resources
-C:\Users\Sergiu\documents\visual studio 2013\Projects\Mp3Player\Mp3Player\obj\Debug\Mp3Player.csprojResolveAssemblyReference.cache

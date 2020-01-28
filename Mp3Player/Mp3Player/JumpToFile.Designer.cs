@@ -48,6 +48,7 @@
             this.SearchBar.Name = "SearchBar";
             this.SearchBar.Size = new System.Drawing.Size(260, 20);
             this.SearchBar.TabIndex = 1;
+            this.SearchBar.Click += new System.EventHandler(this.Jump_To_File_Button);
             // 
             // button1
             // 
