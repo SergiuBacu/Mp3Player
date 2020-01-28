@@ -51,6 +51,18 @@ namespace Mp3Player
                 sounds.PlayFile(SelectedFile);
             }
         }
+             
+        public string label1Text
+        {
+            get
+            {
+                return label1.Text;
+            }
+            set
+            {
+                this.label1.Text = value;
+            }
+        }
 //----------------------------------------------------------------------
         int CurrentSongIndex = 0;
    /*  public struct  info 
@@ -66,14 +78,36 @@ namespace Mp3Player
         }
 
     public static List<info> SongsInfo = new List<info>();
-        byte[] b = new byte[128];
+  /*      byte[] b = new byte[128];
         string sTitle;
         string sSinger;
         string sAlbum;
         string sYear;
         string sComm;
 
-       
+   */
+    public string Label1Text
+    {
+        get
+        {
+            return label1.Text;
+        }
+        set
+        {
+            this.label1.Text = value;
+        }
+    }
+    public string Label2Text
+    {
+        get
+        {
+            return label2.Text;
+        }
+        set
+        {
+            this.label2.Text = value;
+        }
+    }
 
 
         private void Load_Click(object sender, EventArgs e)
@@ -105,7 +139,9 @@ namespace Mp3Player
                int sdfs;              
               
                 string[] Files = Directory.GetFiles(dir,"*.mp3",SearchOption.AllDirectories);
-     
+
+                
+
                 int nr = Files.Length;          
             
                 //---------------THIS IS CORRECT--------WORKS-------!!!!!!!!!!!!!!!!!!!
@@ -116,6 +152,8 @@ namespace Mp3Player
                 }
                 //--------------------------------------------------!!!!!!!!!!!!!!!!!!!!
                 int sdfqwer;
+
+               
 
                 //------------Loop and Display only the Artist and Title-------------
           /*      byte[] b = new byte[128];
@@ -162,15 +200,18 @@ namespace Mp3Player
             str.TrimEnd('\0');
                 return str;
         }
-
+        Mp3Player.Elements variables = new Elements();
         public void GetSongsInfo(string ThePath)
-        {         
+        {
+           // Mp3Player.Elements variables = new Elements();
+            
+
 
             FileStream fs = new FileStream(ThePath, FileMode.Open);
             fs.Seek(-128, SeekOrigin.End);
-            fs.Read(b, 0, 128);
+            fs.Read(variables.b, 0, 128);
             bool isSet = false;
-            string sFlag = System.Text.Encoding.Default.GetString(b, 0, 3);
+            string sFlag = System.Text.Encoding.Default.GetString(variables.b, 0, 3);
             if (sFlag.CompareTo("TAG") == 0)
             {
                 //System.Console.WriteLine("Tag is  setted");
@@ -179,65 +220,76 @@ namespace Mp3Player
             if (isSet)
             {
                 // get title of the song
-                sTitle = System.Text.Encoding.Default.GetString(b, 3, 30);
+                variables.sTitle = System.Text.Encoding.Default.GetString(variables.b, 3, 30);
                // System.Console.WriteLine("Title: " + sTitle);
-                sTitle.Replace("\0", string.Empty);
-               string newq = Replacement(sTitle);
+                variables.sTitle.Replace("\0", string.Empty);
+                string newq = Replacement(variables.sTitle);
 
                
                 int sdfsfsadf;
 
-
+                Mp3Player.Elements DDD = new Elements();
+             
                 //get singer
-                sSinger = System.Text.Encoding.Default.GetString(b, 33, 30);
-                sSinger.Replace("\0", "");
+                variables.sSinger = System.Text.Encoding.Default.GetString(variables.b, 33, 30);
+                variables.sSinger.Replace("\0", "");
                 // System.Console.WriteLine("Singer " + sSinger);
 
-
+            //    variables.sComm
                 // get album
-                sAlbum = System.Text.Encoding.Default.GetString(b, 63, 30);
-                sAlbum.Replace("\0", string.Empty);
+                variables.sAlbum = System.Text.Encoding.Default.GetString(variables.b, 63, 30);
+                variables.sAlbum.Replace("\0", string.Empty);
                 //System.Console.WriteLine("Album " + sAlbum);
 
                 // get year of publish
-                sYear = System.Text.Encoding.Default.GetString(b, 93, 4);
-                sYear.Replace("\0", string.Empty);
+                variables.sYear = System.Text.Encoding.Default.GetString(variables.b, 93, 4);
+                variables.sYear.Replace("\0", string.Empty);
                 //System.Console.WriteLine("Year " + sYear);
 
                 // get comment
-                sComm = System.Text.Encoding.Default.GetString(b, 97, 30);
+                variables.sComm = System.Text.Encoding.Default.GetString(variables.b, 97, 30);
                 //System.Console.WriteLine("Comment " + sComm);
 
             }
 
         }
+        Play_Class play_class = new Play_Class();
+        
+        
 
-        WindowsMediaPlayer myplayer = new WindowsMediaPlayer();
+
+    //    WindowsMediaPlayer myplayer = new WindowsMediaPlayer();
         private void PlayButton_Click(object sender, EventArgs e)
         {
           string path = Playlist.SelectedItem.ToString();       // Substracting the Title
             int k = path.LastIndexOf('\\');
          //   string title = 
-
+           
       //      label1.Text = Playlist.SelectedItem.ToString();   // this was ok -- but was displaying all the path
         //    label1.Text = Playlist.SelectedItem.ToString().Substring(k + 1, path.Length - k - 1);
             //----Trying to get the information----------
             this.GetSongsInfo(path);
-            if ((sSinger != null) && (sTitle != null))
+            if ((variables.sSinger != null) && (variables.sTitle != null))
             {
                 //  label1.Text = sSinger + " - " + sTitle;
-                label1.Text = sSinger;// +" - " + '\n' + sTitle;
-                label2.Text = sTitle;
+                label1.Text = variables.sSinger;// +" - " + '\n' + sTitle;
+                label2.Text = variables.sTitle;
             }
             else
             {
-
+                
             }
             //-------------------------------------------
+
+            play_class.myplayer.URL = Playlist.SelectedItem.ToString();
+            play_class.myplayer.controls.stop();
+            play_class.myplayer.controls.play();
+         
+
           //  WindowsMediaPlayer myplayer = new WindowsMediaPlayer();
-            myplayer.URL = Playlist.SelectedItem.ToString();
-            myplayer.controls.stop(); // did it stop the previous ?           
-            myplayer.controls.play();
+          //  myplayer.URL = 
+       //     myplayer.controls.stop(); // did it stop the previous ?           
+         //   myplayer.controls.play();
         //    CurrentSongIndex = Playlist.SelectedItem;
             CurrentSongIndex = Playlist.SelectedIndex;
 
@@ -252,14 +304,14 @@ namespace Mp3Player
       
         private void PauseButton_Click(object sender, EventArgs e)
         {            
-            myplayer.controls.pause();
+            play_class.myplayer.controls.pause();
             
         }
       
         private void Stop_Button(object sender, EventArgs e)
         {
             // the stop button 
-            myplayer.controls.stop();
+            play_class.myplayer.controls.stop();
         }
 
         private void Forward_Button(object sender, EventArgs e)
@@ -273,16 +325,16 @@ namespace Mp3Player
             if ((Playlist.SelectedIndex < Total - 1))
             {
                 Playlist.SelectedIndex++;
-                myplayer.controls.next();
+                play_class.myplayer.controls.next();
                 //   myplayer.controls.play();  ///  include this if it doesn't play the next
-                myplayer.URL = Playlist.SelectedItem.ToString();
-                myplayer.controls.stop(); // did it stop the previous ?           
-                myplayer.controls.play();
+                play_class.myplayer.URL = Playlist.SelectedItem.ToString();
+                play_class.myplayer.controls.stop(); // did it stop the previous ?           
+                play_class.myplayer.controls.play();
 
                 string path = Playlist.SelectedItem.ToString();       // Substracting the Title
                 int k = path.LastIndexOf('\\');
           //      label1.Text = Playlist.SelectedItem.ToString().Substring(k + 1, path.Length - k - 1);
-                label1.Text = sSinger + " - " + sTitle;
+                label1.Text = variables.sSinger + " - " + variables.sTitle;
 
 
 
@@ -323,23 +375,23 @@ namespace Mp3Player
             if (Playlist.SelectedIndex > 0)
             {
                 Playlist.SelectedIndex--;
-                myplayer.controls.previous();
+                play_class.myplayer.controls.previous();
                 //   myplayer.controls.play();  ///  include this if it doesn't play the next
-                myplayer.URL = Playlist.SelectedItem.ToString();
-                myplayer.controls.stop(); // did it stop the previous ?           
-                myplayer.controls.play();
+                play_class.myplayer.URL = Playlist.SelectedItem.ToString();
+                play_class.myplayer.controls.stop(); // did it stop the previous ?           
+                play_class.myplayer.controls.play();
 
 
 
                 string path = Playlist.SelectedItem.ToString();       // Substracting the Title
                 int k = path.LastIndexOf('\\');
            //     label1.Text = Playlist.SelectedItem.ToString().Substring(k + 1, path.Length - k - 1);
-                label1.Text = sSinger + " - " + sTitle;
+                label1.Text = variables.sSinger + " - " + variables.sTitle;
 
 
                 int asdasdasdasd;
 
-                object scvncvbnf = myplayer.controls.currentItem.getItemInfo(Playlist.SelectedIndex.ToString());
+ object scvncvbnf = play_class.myplayer.controls.currentItem.getItemInfo(Playlist.SelectedIndex.ToString());
 
                 //-------------Auto Scroll--------------
             //    Playlist.SelectedIndex = Playlist.Items.Count - 1;   // NOT working
@@ -388,6 +440,11 @@ namespace Mp3Player
             jump.Show();
 
             
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
 
         }
     }

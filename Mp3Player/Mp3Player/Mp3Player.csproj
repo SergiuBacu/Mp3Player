@@ -52,12 +52,14 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="InfoClass.cs" />
     <Compile Include="JumpToFile.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="JumpToFile.Designer.cs">
       <DependentUpon>JumpToFile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Play_Class.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
